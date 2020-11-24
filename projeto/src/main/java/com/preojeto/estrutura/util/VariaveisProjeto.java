@@ -15,6 +15,9 @@ public class VariaveisProjeto {
 	public static final Integer CAMPO_VAZIO = 200;
 	
 	
+	public static final String LIMPA_CAMPO = "";
+	
+	
 	public static boolean digitacaoCampo(Integer texto) {
 		
 		if ( Objects.isNull(texto)) {
@@ -29,7 +32,7 @@ public class VariaveisProjeto {
 	}
 	
 	public static boolean digitacaoCampo(String texto) {
-		
+			
 		if ( Objects.isNull(texto)) {
 			return true;
 		}
@@ -37,9 +40,16 @@ public class VariaveisProjeto {
 		if ("".equals(texto.trim())){
 			return true;
 		}
-	
 		return false;
 	}
+	
+	public static Integer convertToInteger(String texto) {
+		return Integer.parseInt(texto);
+	}
+	
+	
+	
+	
 	
 
 	
