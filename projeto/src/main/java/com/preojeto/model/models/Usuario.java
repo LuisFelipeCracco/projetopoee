@@ -1,10 +1,17 @@
 package com.preojeto.model.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,14 +19,17 @@ import javax.persistence.Table;
 public class Usuario {
 
 	private Integer id;
-    private String  username; 
-    private String  email;
-    private String  password;
+	private String  username; 
+	private String  email;
+	private String  password;
 	private boolean ativo = true;
 	private boolean admin = false;
 	
-	
-    @Id
+	private Departamento departamento;
+	private List<Role> roles;
+
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USUARIO_ID")
 	public Integer getId() {
@@ -76,6 +86,29 @@ public class Usuario {
 		this.admin = admin;
 	}
 	
+//RELACIONAMENTO - MUITOS PARA UM
+	@ManyToOne
+//	@JoinColumn(name="DEPARTAMENTO_ID", nullable=false)
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+	
+//MUITOS PARA MUITOS	
+	@ManyToMany
+	@JoinTable(name="TAB_USUARIO_ROLE", joinColumns = @JoinColumn(name="USUARIO_ID"),
+	inverseJoinColumns = @JoinColumn(name="ROLE_ID"))
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -107,10 +140,6 @@ public class Usuario {
 		return "Usuario [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
 				+ ", ativo=" + ativo + ", admin=" + admin + "]";
 	}
-
-	
-
-
 
 
 
